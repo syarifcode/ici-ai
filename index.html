@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ici AI - teman kamu</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Riwayat Chat</h3>
+            <button id="btnCloseSidebar" class="btn-icon"><i class="fas fa-times"></i></button>
+        </div>
+        
+        <div id="sessionList" class="session-list">
+            </div>
+
+        <div class="sidebar-footer">
+            <button id="btnDeleteAll" class="btn-danger">
+                <i class="fas fa-trash-alt"></i> Hapus Semua Sesi
+            </button>
+            <div class="dev-info">
+                <p>Ici AI oleh <strong>SyarifCode</strong></p>
+                <a href="https://instagram.com/dyat_xd" target="_blank">
+                    <i class="fab fa-instagram"></i> @dyat_xd
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="overlay" class="overlay"></div>
+
+    <div class="main-container">
+        <div class="header">
+            <div class="header-left">
+                <button id="btnOpenSidebar" class="btn-icon">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="bot-info">
+                    <h2>ici AI V2 Pro</h2>
+                    <span class="status-indicator"></span>
+                </div>
+            </div>
+            <button id="btnNewChatHeader" class="btn-icon" title="Chat Baru">
+                <i class="fas fa-edit"></i>
+            </button>
+        </div>
+
+        <div id="chatBox" class="chat-box">
+            <div id="welcomeMessage" class="welcome-screen">
+                <div class="logo-circle">🤖</div>
+                <h3>Apa yang bisa Ici bantu?</h3>
+                <p>Tanya tugas, curhat, atau analisis gambar!</p>
+            </div>
+            </div>
+
+        <div id="imagePreviewContainer" class="image-preview hidden">
+            <div class="preview-card">
+                <img id="imagePreview" src="" alt="Preview">
+                <button id="btnRemoveImage" class="btn-close-img"><i class="fas fa-times"></i></button>
+            </div>
+            <p class="upload-status" id="uploadStatus">Siap kirim...</p>
+        </div>
+
+        <div class="input-area">
+            <input type="file" id="fileInput" accept="image/*" hidden>
+            
+            <button id="btnUpload" class="btn-tool" title="Pilih Gambar">
+                <i class="far fa-image"></i>
+            </button>
+            
+            <textarea id="userInput" placeholder="Ketik pesan..." rows="1"></textarea>
+            
+            <button id="btnSend" class="btn-send">
+                <i class="fas fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

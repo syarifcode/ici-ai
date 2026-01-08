@@ -1,0 +1,236 @@
+:root {
+    /* Color Palette - Dark Aesthetic */
+    --bg-color: #121212;
+    --sidebar-bg: #181818;
+    --header-bg: #181818;
+    --chat-bg: #0d0d0d;
+    --input-bg: #262626;
+    --text-primary: #e0e0e0;
+    --text-secondary: #888888;
+    --accent-color: #ffffff; 
+    --user-bubble: #2b2b2b; /* Abu Gelap Elegan */
+    --bot-bubble: #181818;
+    --border-color: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    height: 100dvh; /* Tinggi dinamis untuk mobile browser */
+    overflow: hidden; /* Mencegah scroll pada body utama */
+}
+
+/* --- LAYOUT UTAMA --- */
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    max-width: 600px; /* Batas lebar agar rapi di Desktop */
+    margin: 0 auto;
+    background: var(--chat-bg);
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+}
+
+/* --- HEADER --- */
+.header {
+    background: var(--header-bg);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    z-index: 10;
+}
+
+.header-left { display: flex; align-items: center; gap: 15px; }
+.header h2 { font-size: 1.1rem; font-weight: 700; letter-spacing: 0.5px; }
+
+/* Indikator Online */
+.status-indicator {
+    width: 8px; height: 8px; background: #10b981;
+    border-radius: 50%; margin-left: 5px; display: inline-block;
+    box-shadow: 0 0 8px #10b981;
+}
+
+.btn-icon {
+    background: none; border: none; color: var(--text-primary);
+    font-size: 1.2rem; cursor: pointer; padding: 5px;
+    transition: transform 0.2s;
+}
+.btn-icon:active { transform: scale(0.9); }
+
+/* --- SIDEBAR (Menu Kiri) --- */
+.sidebar {
+    position: fixed; top: 0; left: 0;
+    width: 280px; height: 100%;
+    background: var(--sidebar-bg);
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex; flex-direction: column;
+    box-shadow: 5px 0 15px rgba(0,0,0,0.5);
+}
+.sidebar.active { transform: translateX(0); }
+
+.sidebar-header {
+    padding: 20px; border-bottom: 1px solid var(--border-color);
+    display: flex; justify-content: space-between; align-items: center;
+}
+
+.session-list { flex: 1; overflow-y: auto; padding: 10px; }
+
+.session-item {
+    padding: 14px; margin-bottom: 5px;
+    background: transparent; border-radius: 8px;
+    cursor: pointer; transition: 0.2s;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    color: var(--text-secondary); font-size: 0.9rem;
+    border: 1px solid transparent;
+}
+.session-item:hover { background: #222; color: white; }
+.session-item.active { background: #262626; color: white; border-color: #444; }
+
+.sidebar-footer { padding: 20px; border-top: 1px solid var(--border-color); text-align: center; }
+.dev-info p { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 5px; }
+.dev-info a { color: var(--text-primary); text-decoration: none; font-weight: bold; font-size: 0.85rem; }
+
+.btn-danger {
+    width: 100%; padding: 12px; background: #7f1d1d; color: #fecaca;
+    border: none; border-radius: 8px; margin-bottom: 15px; cursor: pointer; font-weight: 600;
+}
+
+/* Overlay Gelap saat Sidebar Muncul */
+.overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7); z-index: 90;
+    display: none; opacity: 0; transition: opacity 0.3s;
+}
+.overlay.active { display: block; opacity: 1; }
+
+/* --- CHAT AREA --- */
+.chat-box {
+    flex: 1; overflow-y: auto; padding: 20px;
+    display: flex; flex-direction: column; gap: 20px;
+    scroll-behavior: smooth;
+}
+
+/* Welcome Screen (Glowing Text) */
+.welcome-screen {
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    height: 70%; text-align: center; color: var(--text-secondary);
+}
+.glow-text {
+    font-size: 3.5rem; font-weight: 800; margin-bottom: 10px;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255,255,255,0.1), 0 0 20px rgba(255,255,255,0.1);
+    animation: glowFloat 3s infinite ease-in-out;
+}
+@keyframes glowFloat {
+    0%, 100% { transform: translateY(0); text-shadow: 0 0 15px rgba(255,255,255,0.3); }
+    50% { transform: translateY(-8px); text-shadow: 0 0 25px rgba(255,255,255,0.6), 0 0 40px rgba(255,255,255,0.2); }
+}
+
+/* Messages */
+.message { display: flex; flex-direction: column; max-width: 85%; }
+.user-message { align-self: flex-end; align-items: flex-end; }
+.bot-message { align-self: flex-start; align-items: flex-start; }
+
+.bubble { 
+    padding: 12px 16px; 
+    border-radius: 18px; 
+    position: relative; 
+    line-height: 1.5; 
+    font-size: 0.95rem; 
+    word-wrap: break-word;
+}
+
+.user-message .bubble {
+    background: var(--user-bubble); color: white;
+    border-bottom-right-radius: 4px;
+}
+.bot-message .bubble {
+    background: var(--bot-bubble); color: var(--text-primary);
+    border-bottom-left-radius: 4px; border: 1px solid #222;
+}
+
+.img-attachment {
+    width: 100%; max-width: 250px;
+    border-radius: 12px; margin-bottom: 8px;
+    display: block;
+    border: 1px solid #333;
+}
+
+/* Action Buttons (Copy/Share) */
+.msg-actions {
+    display: flex; gap: 10px; margin-top: 5px; margin-left: 5px; opacity: 0.6;
+}
+.action-btn {
+    background: none; border: none; color: var(--text-secondary);
+    font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 4px;
+}
+.action-btn:hover { color: white; opacity: 1; }
+
+/* --- INPUT & PREVIEW AREA --- */
+
+/* BAGIAN PENTING: FIX UNTUK MENYEMBUNYIKAN PREVIEW */
+.hidden { 
+    display: none !important; 
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+.image-preview { 
+    padding: 10px; 
+    background: var(--header-bg); 
+    border-top: 1px solid var(--border-color);
+}
+
+.preview-card { position: relative; width: fit-content; }
+#imagePreview { height: 80px; border-radius: 8px; border: 1px solid #444; display: block; }
+
+.btn-close-img {
+    position: absolute; top: -8px; right: -8px;
+    background: #333; color: white; border: 1px solid #555;
+    width: 24px; height: 24px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.input-area {
+    padding: 10px 15px; background: var(--header-bg);
+    border-top: 1px solid var(--border-color);
+    display: flex; align-items: flex-end; gap: 10px;
+    padding-bottom: max(10px, env(safe-area-inset-bottom)); /* Support iPhone X+ */
+}
+
+textarea {
+    flex: 1; background: var(--input-bg); color: white;
+    border: 1px solid transparent; border-radius: 24px;
+    padding: 12px 18px; resize: none; outline: none;
+    max-height: 120px; font-size: 0.95rem;
+}
+textarea:focus { background: #333; }
+
+.btn-tool, .btn-send {
+    background: none; border: none; cursor: pointer;
+    font-size: 1.4rem; padding: 10px; color: var(--text-secondary);
+    transition: color 0.2s;
+}
+.btn-send { color: white; }
+.btn-tool:hover { color: white; }
+.btn-send:disabled { color: #444; cursor: not-allowed; }
+
+/* Custom Scrollbar */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #444; }
