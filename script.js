@@ -1,6 +1,6 @@
 // --- KONFIGURASI ---
 const CHAT_API_BASE = 'https://api.nekolabs.web.id/text.gen/gemini/2.5-pro';
-const SYSTEM_PROMPT = "Kamu adalah Ici AI, asisten AI cerdas dan ceria. Gaya bicaramu ramah, santai, seru, tetap profesional dan sangat membantu layaknya teman dekat dan memberikan penjelasan yang mudah dipahami. dan jangan gunakan simbol * dalam mengirim teks agar teks respon kamu terlihat rapi";
+const SYSTEM_PROMPT = "Kamu adalah Icila AI, asisten AI cerdas dan ceria. Gaya bicaramu ramah, santai, seru, tetap profesional dan sangat membantu layaknya teman dekat dan memberikan penjelasan yang mudah dipahami. dan jangan gunakan simbol * dalam mengirim teks agar teks respon kamu terlihat rapi";
 
 // --- STATE MANAGEMENT ---
 let sessions = JSON.parse(localStorage.getItem('ici_sessions')) || [];
@@ -83,7 +83,7 @@ function loadCurrentSession() {
     
     const welcomeHTML = `
         <div id="welcomeMessage" class="welcome-screen">
-            <h1 class="glow-text">ici AI</h1>
+            <h1 class="glow-text">icila AI</h1>
             <p>Teman baikmu, Siap bantu tugas & informasi dan teman curhat kamu!</p>
         </div>
     `;
@@ -214,8 +214,8 @@ async function sendMessage() {
         }
 
         // 3. API Request
-        if (finalImageUrl) renderMessageBubble('bot', 'Ici sedang melihat gambar...', null, true);
-        else renderMessageBubble('bot', 'Ici sedang mengetik... ️', null, true);
+        if (finalImageUrl) renderMessageBubble('bot', 'Icila sedang melihat gambar...', null, true);
+        else renderMessageBubble('bot', 'Icila sedang mengetik... ️', null, true);
 
         let apiUrl = `${CHAT_API_BASE}?text=${encodeURIComponent(userText)}&systemPrompt=${encodeURIComponent(SYSTEM_PROMPT)}&sessionId=${currentSessionId}`;
         
