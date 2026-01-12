@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } 
         else if (mode === 'create') {
             modeIndicator.classList.remove('hidden');
-            if(modeText) modeText.innerText = "Mode: Buat Gambar (Flux) 🎨";
+            if(modeText) modeText.innerText = "Mode: Buat Gambar 🎨";
             userInput.placeholder = "Deskripsikan gambar... (Contoh: Kucing cyberpunk)";
             const btnUp = document.getElementById('btnUpload');
             if(btnUp) btnUp.style.display = 'none'; // Sembunyikan upload
