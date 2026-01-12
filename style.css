@@ -1,0 +1,187 @@
+:root {
+    --bg-color: #121212;
+    --header-bg: #181818;
+    --chat-bg: #0d0d0d;
+    --input-bg: #1e1e1e;
+    --text-primary: #e0e0e0;
+    --text-secondary: #888888;
+    --user-bubble: #2b2b2b;
+    --bot-bubble: #181818;
+    --border-color: #333;
+    --badge-bg: rgba(255, 255, 255, 0.08);
+}
+
+/* RESET & LAYOUT */
+* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+html, body { height: 100%; width: 100%; background: var(--bg-color); color: var(--text-primary); overflow: hidden; position: fixed; }
+
+.main-container { display: flex; flex-direction: column; height: 100%; width: 100%; max-width: 600px; margin: 0 auto; background: var(--chat-bg); position: relative; }
+
+/* HEADER */
+.header { 
+    flex-shrink: 0; background: var(--header-bg); padding: 15px 20px; 
+    display: flex; justify-content: space-between; align-items: center; 
+    border-bottom: 1px solid var(--border-color); z-index: 10; 
+}
+.header-left { display: flex; align-items: center; gap: 15px; height: 100%; }
+.bot-info { display: flex; flex-direction: column; justify-content: center; }
+.header h2 { font-size: 1.1rem; font-weight: 700; margin: 0; line-height: 1.2; }
+.status-indicator { width: 8px; height: 8px; background: #10b981; border-radius: 50%; display: inline-block; margin-top: 2px;}
+.btn-icon { background: none; border: none; color: var(--text-primary); font-size: 1.2rem; cursor: pointer; padding: 5px; display: flex; align-items: center;}
+
+/* CHAT BOX */
+.chat-box { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 20px; scroll-behavior: smooth; }
+
+/* BUBBLES */
+.message { display: flex; flex-direction: column; max-width: 85%; }
+.user-message { align-self: flex-end; align-items: flex-end; }
+.bot-message { align-self: flex-start; align-items: flex-start; }
+.bubble { padding: 10px 14px; border-radius: 16px; position: relative; line-height: 1.4; font-size: 0.95rem; word-wrap: break-word; }
+.user-message .bubble { background: var(--user-bubble); color: white; border-bottom-right-radius: 4px; }
+.bot-message .bubble { background: var(--bot-bubble); color: var(--text-primary); border-bottom-left-radius: 4px; border: 1px solid #222; }
+.img-attachment { width: 100%; max-width: 250px; border-radius: 12px; margin-bottom: 8px; border: 1px solid #333; }
+.msg-actions { display: flex; align-items: center; gap: 10px; margin-top: 5px; opacity: 0.8; flex-wrap: wrap; }
+.action-btn { background: none; border: none; color: #888; font-size: 0.8rem; cursor: pointer; display: flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 4px; transition: background 0.2s; }
+.action-btn:hover { background: rgba(255,255,255,0.1); color: white; }
+
+/* MODE INDICATOR (FIX AESTHETIC TOMBOL X) */
+.mode-indicator { 
+    background: #2d1b4e; color: #d8b4fe; 
+    padding: 8px 15px; font-size: 0.85rem; font-weight: 500;
+    display: flex; justify-content: space-between; align-items: center; 
+    border-top: 1px solid #4c1d95; 
+}
+/* Tombol X Modern */
+#btnCancelMode { 
+    background: rgba(0, 0, 0, 0.2); 
+    border: none; 
+    color: #d8b4fe; 
+    width: 24px; height: 24px; 
+    border-radius: 50%; 
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; 
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+#btnCancelMode:hover { 
+    background: rgba(255, 255, 255, 0.2); 
+    color: white; 
+    transform: scale(1.1);
+}
+
+/* INPUT AREA (TEXTAREA FIX SCROLL) */
+.input-area.stacked {
+    flex-shrink: 0; background: var(--header-bg); border-top: 1px solid var(--border-color);
+    padding: 10px 15px; display: flex; flex-direction: column; gap: 8px; z-index: 20;
+    padding-bottom: max(10px, env(safe-area-inset-bottom));
+}
+
+textarea {
+    width: 100%; 
+    min-height: 45px; 
+    max-height: 160px; /* Batas ~7 baris */
+    background: var(--input-bg);
+    color: white; border: 1px solid #333; border-radius: 20px; padding: 12px 15px;
+    resize: none; outline: none; font-size: 0.95rem; 
+    overflow-y: auto; /* PENTING: Biar bisa discroll */
+    line-height: 1.4;
+}
+textarea:focus { border-color: #666; }
+
+/* TOOLBAR & BUTTONS */
+.input-toolbar { display: flex; justify-content: space-between; align-items: center; }
+.toolbar-left, .toolbar-right { display: flex; align-items: center; gap: 10px; }
+.btn-tool { background: transparent; border: none; color: #888; font-size: 1.4rem; cursor: pointer; padding: 5px; }
+.btn-tool:hover { color: white; }
+.magic-trigger { color: #8b5cf6; } 
+.mode-badge { padding: 5px 10px; border-radius: 15px; font-size: 0.75rem; font-weight: 600; cursor: pointer; background: var(--badge-bg); color: #888; border: 1px solid transparent; }
+.btn-send-round { background: white; color: black; border: none; width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 1rem; transition: transform 0.1s; }
+.btn-send-round:active { transform: scale(0.9); }
+
+/* SIDEBAR & UTILS */
+.sidebar { position: fixed; top: 0; left: 0; width: 280px; height: 100%; background: #181818; z-index: 10000; transform: translateX(-100%); transition: transform 0.3s; display: flex; flex-direction: column; box-shadow: 5px 0 15px rgba(0,0,0,0.5); }
+.sidebar.active { transform: translateX(0); }
+.sidebar-header { padding: 20px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+.session-list { flex: 1; overflow-y: auto; padding: 10px; }
+.session-item { padding: 12px 14px; margin-bottom: 5px; background: transparent; border-radius: 8px; cursor: pointer; color: #888; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: background 0.2s; border: 1px solid transparent; }
+.session-item:hover { background: #222; }
+.session-item.active { background: #262626; color: white; border: 1px solid #333; }
+.sidebar-footer { padding: 20px; border-top: 1px solid #333; text-align: center; }
+.btn-danger, .btn-install, .btn-apk { width: 100%; padding: 12px; border-radius: 8px; cursor: pointer; margin-bottom: 10px; border: none; display: flex; justify-content: center; align-items: center; gap: 8px; color: white; text-decoration: none;}
+.btn-danger { background: #3f1010; color: #ff8888; } .btn-install { background: #2563eb; } .btn-apk { background: #333; }
+.dev-info a { color: #888 !important; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+.dev-info a:hover { color: white !important; }
+
+/* MAGIC MENU */
+.overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 9000; display: none; }
+.overlay.active { display: block; }
+.magic-menu { position: fixed; bottom: 0; left: 0; width: 100%; background: #1c1c1c; border-top-left-radius: 20px; border-top-right-radius: 20px; padding: 25px 20px; z-index: 9999; transform: translateY(110%); transition: transform 0.3s ease-out; box-shadow: 0 -5px 30px rgba(0,0,0,0.8); }
+.magic-menu.active { transform: translateY(0); }
+.magic-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+.magic-options { display: flex; flex-direction: column; gap: 12px; }
+.magic-btn { display: flex; align-items: center; gap: 15px; background: #2a2a2a; border: 1px solid #333; padding: 15px; border-radius: 12px; text-align: left; cursor: pointer; color: white; }
+.magic-icon { width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
+.gen-icon { background: #7c3aed; color: white; } .edit-icon { background: #db2777; color: white; } .chat-icon { background: #333; color: #aaa; }
+
+/* UTILS */
+.hidden { display: none !important; }
+.image-preview { padding: 10px; background: var(--header-bg); border-top: 1px solid var(--border-color); }
+#imagePreview { height: 80px; border-radius: 8px; display: block; }
+.btn-close-img { position: absolute; top: -8px; right: -8px; width: 25px; height: 25px; border-radius: 50%; border: none; background: red; color: white; cursor: pointer;}
+.welcome-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 80%; text-align: center; color: var(--text-secondary); }
+.glow-text { font-size: 3.5rem; font-weight: 800; margin-bottom: 10px; color: #fff; text-shadow: 0 0 15px rgba(255,255,255,0.1); }
+/* --- VISITOR STATS (SIDEBAR) --- */
+.visitor-card {
+    background: linear-gradient(145deg, #1a1a1a, #222);
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+/* Efek Kilau Halus */
+.visitor-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.05), transparent);
+    animation: shine 3s infinite;
+}
+@keyframes shine { 100% { left: 100%; } }
+
+.visitor-header {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    font-size: 0.8rem; color: #888; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* Titik Hijau Kedip-Kedip */
+.live-dot {
+    width: 8px; height: 8px;
+    background-color: #00ff88;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00ff88;
+    animation: pulseRed 2s infinite;
+}
+@keyframes pulseRed {
+    0% { transform: scale(0.95); opacity: 0.7; }
+    50% { transform: scale(1.2); opacity: 1; box-shadow: 0 0 15px #00ff88; }
+    100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+.visitor-count {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: #fff;
+    font-family: 'Courier New', monospace; /* Font ala Digital */
+    text-shadow: 0 0 10px rgba(255,255,255,0.2);
+    margin: 5px 0;
+}
+
+.visitor-label {
+    font-size: 0.7rem; color: #555;
+}
