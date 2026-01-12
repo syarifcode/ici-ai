@@ -165,7 +165,7 @@ async function sendMessage() {
             addMessageToSession('bot', data.result, null);
             renderMessageBubble('bot', data.result);
         } else {
-            renderMessageBubble('bot', `⚠️ Error API: ${data.message}`);
+            renderMessageBubble('bot', `⚠️ Error,coba ganti mode lain: ${data.message}`);
         }
 
     } catch (error) {
